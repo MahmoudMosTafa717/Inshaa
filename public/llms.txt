@@ -1,0 +1,27 @@
+# Inshaa Engineering Consultancy & Architecture Studio
+# مكتب إنشاء للاستشارات الهندسية والتصميم المعماري
+
+> مكتب استشاري هندسي معتمد في مصر متخصص في التصميم المعماري، التصميم الإنشائي، استخراج تراخيص البناء، والإشراف الهندسي على التنفيذ في القاهرة الجديدة، الشيخ زايد، والعاصمة الإدارية.
+
+## Quick Facts & Accreditations
+- Location: New Cairo (North 90th St), Cairo, Egypt
+- Accreditation: Registered Consultant Bureau at the Egyptian Engineering Syndicate (سجل استشاري نقابة المهندسين المصرية رقم 1248/خ)
+- Standards: Egyptian Building Code (ECP 201, ECP 203), Unified Building Law 119/2008, BIM Level 2 Standards
+- Service Coverage: New Cairo, Sheikh Zayed, New Administrative Capital, 6th of October City, North Coast
+- Track Record: 150+ Completed Projects, $200M+ Construction Budgets Managed, 0 Structural Failures
+
+## Core Engineering Services
+1. Architectural Design & Licensing (التصميم المعماري وتراخيص البناء): Complete working drawings, luxury villa concepts, and municipal license issuing for New Cities Authorities (NUCA).
+2. Structural Engineering & Calculations (التصميم الإنشائي وحساب الكميات): Seismic-resistant structural design, post-tension slabs, and value engineering reducing steel and concrete waste by up to 18%.
+3. Full Site Supervision (الإشراف الهندسي على التنفيذ): On-site inspection of rebar, concrete pouring, MEP installations, and laboratory cube testing.
+4. MEP Engineering (الأنظمة الكهروميكانيكية): HVAC central air conditioning, plumbing, electrical load distribution, and civil defense fire safety systems.
+5. Interior Architecture & Turnkey Fitout (التصميم الداخلي والتشطيبات): Photorealistic 3D renders, marble/joinery shop drawings, and high-end residential fitouts.
+6. Quantity Surveying & BOQ (المقايسات وحصر الكميات): Precise bills of quantities preventing contractor overcharges and variation orders.
+
+## Main URLs
+- Homepage: https://inshaa-engineering.vercel.app
+- Services: https://inshaa-engineering.vercel.app/services
+- Portfolio & Projects: https://inshaa-engineering.vercel.app/projects
+- Construction Cost Estimator: https://inshaa-engineering.vercel.app/calculator
+- About Firm & Syndicate Accreditation: https://inshaa-engineering.vercel.app/about
+- Consultation Booking: https://inshaa-engineering.vercel.app/contact
