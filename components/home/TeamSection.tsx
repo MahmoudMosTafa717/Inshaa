@@ -8,13 +8,13 @@ import { FadeInView } from "@/components/motion/FadeInView";
 
 export function TeamSection() {
   return (
-    <section className="py-20 bg-paper-50 border-b border-slate-200">
+    <section className="py-20 bg-paper-50 border-b border-paper-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           number="05"
           tag="الكادر الهندسي الاستشاري"
-          title="نخبة من المهندسين الاستشاريين المقيدين بالنقابة"
-          subtitle="يقود مشروعاتنا أساتذة ومهندسون استشاريون ذوو خبرة تزيد عن 20 عاماً في تصميم وتنفيذ المنشآت الخرسانية والمعمارية في مصر."
+          title="بقيادة مهندس استشاري / عماد الدين أمين"
+          subtitle="يقود مشروعاتنا نخبة من المهندسين الاستشاريين المقيدين بنقابة المهندسين المصرية بخبرات تمتد لأكثر من 20 عاماً في تصميم وتنفيذ المنشآت بمحافظة الفيوم وأكتوبر وزايد."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -30,25 +30,25 @@ export function TeamSection() {
                       sizes="(max-width: 768px) 100vw, 300px"
                       className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                     />
-                    <div className="absolute bottom-2 right-2 bg-slate-950/80 text-amber-400 font-mono text-[10px] px-2 py-0.5 backdrop-blur-sm">
+                    <div className="absolute bottom-2 right-2 bg-slate-950/85 text-desert-400 font-mono text-[10px] px-2 py-0.5 backdrop-blur-sm border border-slate-800">
                       {member.experienceYears}+ عاماً خبرة
                     </div>
                   </div>
 
                   <div className="p-5">
-                    <h3 className="text-lg font-bold text-slate-900 font-display mb-1 group-hover:text-amber-600 transition-colors">
+                    <h3 className="text-lg font-bold text-slate-900 font-display mb-1 group-hover:text-brick-700 transition-colors">
                       {member.name}
                     </h3>
-                    <p className="text-xs font-semibold text-amber-800 leading-snug mb-2 font-mono">
+                    <p className="text-xs font-bold text-brick-700 leading-snug mb-2 font-mono">
                       {member.role}
                     </p>
-                    <p className="text-xs text-slate-600 leading-relaxed mb-3">
+                    <p className="text-xs text-slate-600 leading-relaxed mb-3 font-sans">
                       {member.specialization}
                     </p>
                   </div>
                 </div>
 
-                <div className="p-4 bg-paper-100 border-t border-slate-200 text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+                <div className="p-4 bg-paper-100 border-t border-paper-300 text-[11px] font-mono text-slate-600 flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span className="line-clamp-1">{member.syndicateNumber}</span>
                 </div>

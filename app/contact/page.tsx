@@ -24,7 +24,7 @@ export default function ContactPage() {
     phone: "",
     email: "",
     projectType: "فيلا سكنية",
-    location: "التجمع الخامس والقاهرة الجديدة",
+    location: "محافظة الفيوم (الفيوم الجديدة / المسلة)",
     plotArea: "",
     notes: "",
   });
@@ -34,7 +34,6 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate consultation submission
     setSubmitted(true);
   };
 
@@ -52,14 +51,14 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-right max-w-3xl mb-12">
-            <span className="text-xs font-mono font-bold text-amber-700 bg-amber-100 px-3 py-1 border border-amber-300 inline-block mb-3">
-              {"//"} قنوات التواصل وحجز الاستشارات
+            <span className="text-xs font-mono font-bold text-brick-700 bg-brick-50 px-3 py-1 border border-brick-300 inline-block mb-3">
+              {"//"} قنوات التواصل وحجز الاستشارات الهندسية
             </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-tight">
-              تواصل مع فريقنا الهندسي أو احجز موعداً بمقر المكتب
+            <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-display leading-tight">
+              تواصل مع مكتب إنشاء للهندسة أو احجز موعداً بمقرنا بالفيوم أو أكتوبر
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed">
-              سواء كنت ترغب في مراجعة كروكي قطعة أرضك، استخراج رخصة بناء، أو طلب عرض سعر مفصل، يسعدنا التواصل معك وتقديم استشارة أولية مجانية.
+            <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed font-sans">
+              سواء كنت ترغب في مراجعة كروكي قطعة أرضك، استخراج رخصة بناء بالفيوم أو جهازي أكتوبر وزايد، أو طلب مقايسة وتصميم هندسي متكامل، يسعدنا استقبالك وتقديم استشارة أولية مع <strong>مهندس استشاري / عماد الدين أمين</strong>.
             </p>
           </div>
 
@@ -74,14 +73,15 @@ export default function ContactPage() {
                   <h2 className="text-2xl font-bold text-slate-900 font-display">
                     تم استلام طلبك وتنسيق موعد الاستشارة بنجاح!
                   </h2>
-                  <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    شكراً لتواصلك مع مكتب إنشاء. سيتواصل معك أحد مهندسينا الاستشاريين هاتفياً خلال ساعات عمل اليوم لمراجعة تفاصيل الموقع والمخططات.
+                  <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed font-sans">
+                    شكراً لتواصلك مع مكتب إنشاء للهندسة. سيتواصل معك الاستشاري هاتفياً خلال ساعات عمل اليوم لمراجعة تفاصيل الموقع والمخططات.
                   </p>
                   <div className="pt-4">
                     <Button
-                      variant="amber"
+                      variant="primary"
                       size="md"
                       onClick={() => setSubmitted(false)}
+                      className="bg-brick-700 hover:bg-brick-800 border-brick-700 text-white"
                     >
                       <span>تقديم طلب استشارة آخر</span>
                     </Button>
@@ -89,19 +89,19 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="border-b border-slate-200 pb-4">
+                  <div className="border-b border-paper-300 pb-4">
                     <h2 className="text-2xl font-bold text-slate-900 font-display">
-                      استمارة حجز استشارة هندسية ومراجعة مخطط
+                      استمارة حجز استشارة هندسية ومراجعة كروكي
                     </h2>
                     <p className="text-xs text-slate-500 font-mono mt-1">
-                      * يرجى إدخال بيانات المشروع وسنتواصل معك خلال ساعتين عمل.
+                      * يرجى إدخال بيانات موقعك وسنتواصل معك خلال ساعتين عمل.
                     </p>
                   </div>
 
                   {/* Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold font-mono text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold font-mono text-slate-800 mb-1.5">
                         الاسم بالكامل:
                       </label>
                       <input
@@ -110,12 +110,12 @@ export default function ContactPage() {
                         placeholder="المهندس / الأستاذ..."
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full p-3 bg-paper-50 border border-slate-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-sans"
+                        className="w-full p-3 bg-paper-50 border border-paper-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-sans"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold font-mono text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold font-mono text-slate-800 mb-1.5">
                         رقم الهاتف المحمول (واتساب):
                       </label>
                       <input
@@ -125,7 +125,7 @@ export default function ContactPage() {
                         dir="ltr"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full p-3 bg-paper-50 border border-slate-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-mono text-right"
+                        className="w-full p-3 bg-paper-50 border border-paper-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-mono text-right"
                       />
                     </div>
                   </div>
@@ -133,60 +133,59 @@ export default function ContactPage() {
                   {/* Project Type & Location */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold font-mono text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold font-mono text-slate-800 mb-1.5">
                         نوع المنشأة:
                       </label>
                       <select
                         value={formData.projectType}
                         onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="w-full p-3 bg-paper-50 border border-slate-300 focus:border-slate-900 text-sm font-sans"
+                        className="w-full p-3 bg-paper-50 border border-paper-300 focus:border-slate-900 text-sm font-sans"
                       >
                         <option value="فيلا سكنية">فيلا سكنية فاخرة</option>
-                        <option value="عمارة سكنية">عمارة سكنية</option>
-                        <option value="مبنى تجاري / إداري">مبنى تجاري أو إداري</option>
+                        <option value="برج وعمارة سكنية">برج أو عمارة سكنية</option>
+                        <option value="مبنى تجاري / إداري">مبنى أو مول تجاري وإداري</option>
                         <option value="تشطيب وديكور داخلي">تصميم داخلي وتشطيبات</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold font-mono text-slate-700 mb-1.5">
-                        موقع المشروع (المدينة):
+                      <label className="block text-xs font-bold font-mono text-slate-800 mb-1.5">
+                        موقع المشروع (المحافظة / المدينة):
                       </label>
                       <select
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                        className="w-full p-3 bg-paper-50 border border-slate-300 focus:border-slate-900 text-sm font-sans"
+                        className="w-full p-3 bg-paper-50 border border-paper-300 focus:border-slate-900 text-sm font-sans"
                       >
-                        <option value="التجمع الخامس والقاهرة الجديدة">التجمع الخامس والقاهرة الجديدة</option>
-                        <option value="الشيخ زايد و 6 أكتوبر">الشيخ زايد و 6 أكتوبر</option>
+                        <option value="محافظة الفيوم (الفيوم الجديدة / المسلة)">محافظة الفيوم (الفيوم الجديدة / المسلة / قارون)</option>
+                        <option value="مدينة 6 أكتوبر">مدينة 6 أكتوبر والتوسعات</option>
+                        <option value="مدينة الشيخ زايد">مدينة الشيخ زايد ومحور البستان</option>
                         <option value="العاصمة الإدارية الجديدة">العاصمة الإدارية الجديدة</option>
-                        <option value="الشروق وبدر">مدينة الشروق وبدر</option>
-                        <option value="الساحل الشمالي">الساحل الشمالي والعلمين</option>
-                        <option value="محافظة أخرى">محافظة أخرى بمصر</option>
+                        <option value="القاهرة الجديدة والتجمع">القاهرة الجديدة والتجمع الخامس</option>
                       </select>
                     </div>
                   </div>
 
                   {/* Plot Area */}
                   <div>
-                    <label className="block text-xs font-bold font-mono text-slate-700 mb-1.5">
+                    <label className="block text-xs font-bold font-mono text-slate-800 mb-1.5">
                       مساحة الأرض أو مسطح المباني التقديري (م²):
                     </label>
                     <input
                       type="text"
-                      placeholder="مثال: 600 م²"
+                      placeholder="مثال: 500 م²"
                       value={formData.plotArea}
                       onChange={(e) => setFormData({ ...formData, plotArea: e.target.value })}
-                      className="w-full p-3 bg-paper-50 border border-slate-300 focus:border-slate-900 text-sm font-sans"
+                      className="w-full p-3 bg-paper-50 border border-paper-300 focus:border-slate-900 text-sm font-sans"
                     />
                   </div>
 
                   {/* File Upload Simulation (CAD / PDF) */}
                   <div>
-                    <label className="block text-xs font-bold font-mono text-slate-700 mb-1.5">
+                    <label className="block text-xs font-bold font-mono text-slate-800 mb-1.5">
                       إرفاق كروكي الأرض أو المخططات (اختياري - PDF / DWG / صورة):
                     </label>
-                    <div className="relative border-2 border-dashed border-slate-300 hover:border-slate-900 p-4 text-center transition-colors bg-paper-50">
+                    <div className="relative border-2 border-dashed border-paper-300 hover:border-brick-700 p-4 text-center transition-colors bg-paper-50">
                       <input
                         type="file"
                         onChange={handleFileChange}
@@ -202,19 +201,19 @@ export default function ContactPage() {
 
                   {/* Notes */}
                   <div>
-                    <label className="block text-xs font-bold font-mono text-slate-700 mb-1.5">
+                    <label className="block text-xs font-bold font-mono text-slate-800 mb-1.5">
                       تفاصيل أو اشتراطات خاصة ترغب في مناقشتها:
                     </label>
                     <textarea
                       rows={3}
-                      placeholder="اكتب أي ملاحظات حول الارتدادات، الرغبة في عمل بدروم، أو حمام سباحة..."
+                      placeholder="اكتب أي ملاحظات حول عدد الطوابق، الارتدادات، الرغبة في عمل بدروم..."
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      className="w-full p-3 bg-paper-50 border border-slate-300 focus:border-slate-900 text-sm font-sans"
+                      className="w-full p-3 bg-paper-50 border border-paper-300 focus:border-slate-900 text-sm font-sans"
                     />
                   </div>
 
-                  <Button type="submit" variant="amber" size="lg" className="w-full justify-center font-bold">
+                  <Button type="submit" variant="primary" size="lg" className="w-full justify-center font-bold bg-brick-700 hover:bg-brick-800 border-brick-700 text-white font-display">
                     <Send className="w-4 h-4 ml-2" />
                     <span>إرسال طلب الاستشارة وحجز الموعد</span>
                   </Button>
@@ -224,70 +223,70 @@ export default function ContactPage() {
 
             {/* Office Locations & Direct Contacts (5 cols) */}
             <div className="lg:col-span-5 space-y-6">
-              {/* Main Cairo Office Card */}
+              {/* Main Fayoum Office Card */}
               <div className="bg-slate-900 text-white p-6 sm:p-8 border-2 border-slate-900 shadow-xl space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono text-amber-400 font-bold">
+                <div className="flex items-center gap-2 text-xs font-mono text-desert-400 font-bold">
                   <Building className="w-4 h-4" />
-                  <span>{"//"} المقر الرئيسي - القاهرة الجديدة</span>
+                  <span>{"//"} المقر الرئيسي - محافظة الفيوم</span>
                 </div>
                 <h3 className="text-xl font-bold font-display text-white">
-                  مكتب التجمع الخامس
+                  مكتب الفيوم (المقر الرئيسي)
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed font-mono">
-                  شارع التسعين الشمالي، القطعة 42، مركز خدمات التجمع الخامس، القاهرة الجديدة (بجوار محكمة القاهرة الجديدة).
+                  منطقة المسلة، بالقرب من ديوان عام المحافظة ومجمع المصالح الحكومية، مدينة الفيوم.
                 </p>
 
                 <div className="space-y-2 text-xs font-mono pt-3 border-t border-slate-800 text-slate-300">
                   <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span>0100 123 4567 / 02 2814 9000</span>
+                    <Phone className="w-3.5 h-3.5 text-desert-400 shrink-0" />
+                    <span>0100 123 4567 / 0100 987 6543</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                    <Mail className="w-3.5 h-3.5 text-desert-400 shrink-0" />
                     <span>info@inshaa-engineering.com</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span>الأحد - الخميس: 9:00 ص - 6:00 م</span>
+                    <Clock className="w-3.5 h-3.5 text-desert-400 shrink-0" />
+                    <span>السبت - الخميس: 9:00 ص - 8:00 م</span>
                   </div>
                 </div>
 
                 <div className="pt-2">
                   <Button
-                    variant="amber"
+                    variant="primary"
                     size="sm"
                     href="https://wa.me/201001234567"
                     external
-                    className="w-full justify-center bg-emerald-600 hover:bg-emerald-700 border-emerald-600"
+                    className="w-full justify-center bg-emerald-600 hover:bg-emerald-700 border-emerald-600 text-white font-bold"
                   >
                     <MessageCircle className="w-4 h-4 ml-1.5" />
-                    <span>محادثة واتساب فورية</span>
+                    <span>محادثة واتساب فورية مع الاستشاري</span>
                   </Button>
                 </div>
               </div>
 
-              {/* Sheikh Zayed Branch Card */}
+              {/* West Cairo Branch Card */}
               <div className="bg-white border-2 border-slate-900 p-6 sm:p-8 cad-border shadow-soft-elevation space-y-3">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500 font-bold">
                   <Building className="w-4 h-4" />
                   <span>{"//"} فرع غرب القاهرة</span>
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 font-display">
-                  مكتب الشيخ زايد و 6 أكتوبر
+                  مكتب 6 أكتوبر والشيخ زايد
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed font-mono">
-                  محور البستان، مجمع البستان الإداري، الشيخ زايد، محافظة الجيزة.
+                  مدينة 6 أكتوبر ومحور البستان بالشيخ زايد، الجيزة.
                 </p>
-                <div className="text-xs font-mono text-slate-700 pt-2 border-t border-slate-200">
+                <div className="text-xs font-mono text-slate-700 pt-2 border-t border-paper-300">
                   هاتف الفرع: 0100 987 6543
                 </div>
               </div>
 
               {/* Syndicate Proof Box */}
-              <div className="p-4 bg-amber-50 border border-amber-300 text-xs text-amber-950 font-mono flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-amber-700 shrink-0" />
+              <div className="p-4 bg-brick-50 border border-brick-300 text-xs text-brick-950 font-mono flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-brick-700 shrink-0" />
                 <span>
-                  جميع استشاراتنا وعقودنا موثقة ومعتمدة من نقابة المهندسين المصرية برقم قيد 1248/خ.
+                  مكتب إنشاء للهندسة مسجل بنقابة المهندسين المصرية برقم قيد استشاري 1248/خ - م. عماد الدين أمين.
                 </span>
               </div>
             </div>

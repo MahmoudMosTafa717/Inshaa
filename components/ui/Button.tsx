@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "amber" | "outline" | "ghost" | "cyan";
+  variant?: "primary" | "secondary" | "brick" | "desert" | "amber" | "outline" | "ghost" | "cyan";
   size?: "sm" | "md" | "lg";
   href?: string;
   external?: boolean;
@@ -19,21 +19,23 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const baseStyles = "inline-flex items-center justify-center font-medium rounded-none transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]";
+  const baseStyles = "inline-flex items-center justify-center font-semibold rounded-none transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98] font-display";
 
   const variantStyles = {
-    primary: "bg-slate-900 text-white hover:bg-slate-800 focus:ring-slate-900 shadow-architectural",
-    secondary: "bg-paper-100 text-slate-900 border border-slate-300 hover:bg-paper-200 focus:ring-slate-400",
-    amber: "bg-amber-600 text-white hover:bg-amber-700 focus:ring-amber-500 shadow-architectural-amber",
-    cyan: "bg-blueprint-600 text-white hover:bg-blueprint-700 focus:ring-blueprint-500 shadow-architectural",
+    primary: "bg-brick-700 text-white hover:bg-brick-800 focus:ring-brick-700 shadow-architectural-brick border-2 border-brick-700",
+    brick: "bg-brick-700 text-white hover:bg-brick-800 focus:ring-brick-700 shadow-architectural-brick border-2 border-brick-700",
+    desert: "bg-desert-600 text-white hover:bg-desert-700 focus:ring-desert-500 shadow-architectural-amber border-2 border-desert-600",
+    amber: "bg-desert-600 text-white hover:bg-desert-700 focus:ring-desert-500 shadow-architectural-amber border-2 border-desert-600",
+    secondary: "bg-paper-100 text-slate-900 border border-paper-300 hover:bg-paper-200 focus:ring-slate-400",
+    cyan: "bg-petroleum-700 text-white hover:bg-petroleum-800 focus:ring-petroleum-600 shadow-architectural border-2 border-petroleum-700",
     outline: "bg-transparent text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white focus:ring-slate-900",
-    ghost: "bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+    ghost: "bg-transparent text-slate-700 hover:bg-paper-100 hover:text-slate-900",
   };
 
   const sizeStyles = {
-    sm: "text-xs px-3 py-2 gap-1.5",
+    sm: "text-xs px-3.5 py-2 gap-1.5",
     md: "text-sm px-5 py-2.5 gap-2",
-    lg: "text-base px-7 py-3.5 gap-2.5 font-semibold",
+    lg: "text-base px-7 py-3.5 gap-2.5 font-bold",
   };
 
   const combinedClasses = cn(baseStyles, variantStyles[variant], sizeStyles[size], className);

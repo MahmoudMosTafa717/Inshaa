@@ -31,26 +31,26 @@ export function SectionHeading({
       {(tag || number) && (
         <div
           className={cn(
-            "flex items-center gap-3 mb-3 font-mono text-xs font-semibold text-amber-700 tracking-wider",
+            "flex items-center gap-3 mb-3 font-mono text-xs font-bold text-brick-700 tracking-wider",
             align === "center" && "justify-center"
           )}
         >
           {number && (
-            <span className="bg-amber-100 text-amber-900 px-2 py-0.5 border border-amber-300">
+            <span className="bg-brick-50 text-brick-900 px-2.5 py-0.5 border border-brick-300">
               {number}
             </span>
           )}
           {tag && <span>{"//"} {tag}</span>}
-          <div className="h-px bg-slate-200 flex-1 max-w-[80px]" />
+          <div className="h-px bg-desert-400 flex-1 max-w-[80px]" />
         </div>
       )}
 
-      <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 leading-tight">
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight font-display">
         {title}
       </h2>
 
       {subtitle && (
-        <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+        <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed font-normal font-sans">
           {subtitle}
         </p>
       )}

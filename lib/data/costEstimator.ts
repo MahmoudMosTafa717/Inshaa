@@ -1,87 +1,113 @@
-export type ProjectType = "villa" | "residential_building" | "commercial" | "interior";
-export type ScopeType = "full_design" | "design_and_supervision" | "supervision_only" | "turnkey_fitout";
-export type LocationZone = "new_cairo" | "sheikh_zayed" | "new_capital" | "october" | "other";
-
-export interface CostCalculationInput {
-  projectType: ProjectType;
-  builtUpArea: number; // in m²
-  scope: ScopeType;
-  location: LocationZone;
-  finishLevel?: "semi_finished" | "luxury" | "ultra_luxury";
+export interface CostEstimatorParams {
+  projectType: "villa" | "residential_building" | "commercial" | "interior";
+  builtUpArea: number; // in square meters
+  scope: "full_design" | "supervision_only" | "design_and_supervision";
+  location: "fayoum" | "october" | "sheikh_zayed" | "new_capital" | "new_cairo";
+  finishLevel?: "standard" | "luxury" | "ultra_luxury";
 }
 
-export interface CostCalculationResult {
+export interface CostEstimateResult {
   estimatedDesignFee: number;
   estimatedSupervisionFee: number;
   estimatedConstructionBudgetMin: number;
   estimatedConstructionBudgetMax: number;
   expectedDurationMonths: number;
-  breakdown: {
-    architecturalPercent: number;
-    structuralPercent: number;
-    mepPercent: number;
-    permittingPercent: number;
-  };
+  consultantSyndicateStamp: boolean;
 }
 
-export function calculateProjectEstimates(input: CostCalculationInput): CostCalculationResult {
-  const { projectType, builtUpArea, scope, finishLevel = "luxury" } = input;
+export const locationMultipliers: Record<CostEstimatorParams["location"], { label: string; multiplier: number; areaTier: string }> = {
+  fayoum: {
+    label: "محافظة الفيوم (الفيوم الجديدة / المسلة / دلة / قارون)",
+    multiplier: 0.92,
+    areaTier: "مقر العمليات والمشروعات الرئيسي",
+  },
+  october: {
+    label: "مدينة 6 أكتوبر وتوسعاتها",
+    multiplier: 1.0,
+    areaTier: "منطقة استشارية رئيسية بغرب القاهرة",
+  },
+  sheikh_zayed: {
+    label: "مدينة الشيخ زايد وأكتوبر الجديدة",
+    multiplier: 1.05,
+    areaTier: "منطقة استشارية رئيسية بغرب القاهرة",
+  },
+  new_capital: {
+    label: "العاصمة الإدارية الجديدة",
+    multiplier: 1.15,
+    areaTier: "أبراج ومنشآت إدارية وتجارية",
+  },
+  new_cairo: {
+    label: "القاهرة الجديدة والتجمع الخامس",
+    multiplier: 1.1,
+    areaTier: "فيلات ومباني سكنية وتجارية",
+  },
+};
 
-  // Base construction cost per m² in Egyptian market (EGP 2025/2026 estimates)
-  let baseConstructionPerM2 = 8500; // skeleton (خرسانات ومباني)
-  if (projectType === "villa") {
-    baseConstructionPerM2 = 9500;
-  } else if (projectType === "commercial") {
-    baseConstructionPerM2 = 12000;
-  } else if (projectType === "residential_building") {
-    baseConstructionPerM2 = 8000;
-  } else if (projectType === "interior") {
-    baseConstructionPerM2 = 0; // only fitout
+export const projectTypeRates: Record<CostEstimatorParams["projectType"], {
+  label: string;
+  baseDesignPerSqm: number;
+  baseSupervisionPerSqm: number;
+  constructionCostPerSqmMin: number;
+  constructionCostPerSqmMax: number;
+}> = {
+  villa: {
+    label: "فيلا سكنية فاخرة",
+    baseDesignPerSqm: 420,
+    baseSupervisionPerSqm: 280,
+    constructionCostPerSqmMin: 9500,
+    constructionCostPerSqmMax: 14500,
+  },
+  residential_building: {
+    label: "عمارة / برج سكني",
+    baseDesignPerSqm: 280,
+    baseSupervisionPerSqm: 190,
+    constructionCostPerSqmMin: 7500,
+    constructionCostPerSqmMax: 11000,
+  },
+  commercial: {
+    label: "مبنى تجاري / إداري",
+    baseDesignPerSqm: 520,
+    baseSupervisionPerSqm: 320,
+    constructionCostPerSqmMin: 12000,
+    constructionCostPerSqmMax: 18000,
+  },
+  interior: {
+    label: "تصميم ديكور وتشطيبات راقية",
+    baseDesignPerSqm: 380,
+    baseSupervisionPerSqm: 240,
+    constructionCostPerSqmMin: 6000,
+    constructionCostPerSqmMax: 12500,
+  },
+};
+
+export function calculateProjectEstimates(params: CostEstimatorParams): CostEstimateResult {
+  const rates = projectTypeRates[params.projectType];
+  const loc = locationMultipliers[params.location] || locationMultipliers.fayoum;
+
+  let designFee = 0;
+  let supervisionFee = 0;
+
+  if (params.scope === "full_design" || params.scope === "design_and_supervision") {
+    designFee = Math.round(rates.baseDesignPerSqm * params.builtUpArea * loc.multiplier);
   }
 
-  // Finishing additions per m²
-  let finishAddonPerM2 = 0;
-  if (finishLevel === "semi_finished") {
-    finishAddonPerM2 = 2500;
-  } else if (finishLevel === "luxury") {
-    finishAddonPerM2 = 7500;
-  } else if (finishLevel === "ultra_luxury") {
-    finishAddonPerM2 = 14000;
+  if (params.scope === "supervision_only" || params.scope === "design_and_supervision") {
+    supervisionFee = Math.round(rates.baseSupervisionPerSqm * params.builtUpArea * loc.multiplier);
   }
 
-  const totalCostPerM2Min = baseConstructionPerM2 + (finishAddonPerM2 * 0.9);
-  const totalCostPerM2Max = (baseConstructionPerM2 * 1.15) + (finishAddonPerM2 * 1.1);
+  const constructionMin = Math.round(rates.constructionCostPerSqmMin * params.builtUpArea);
+  const constructionMax = Math.round(rates.constructionCostPerSqmMax * params.builtUpArea);
 
-  const estimatedConstructionBudgetMin = Math.round(builtUpArea * totalCostPerM2Min);
-  const estimatedConstructionBudgetMax = Math.round(builtUpArea * totalCostPerM2Max);
-
-  // Engineering Design Fee per m² (Egyptian engineering syndicate consulting rates)
-  let designFeePerM2 = 350; // Architectural + Structural + MEP + BOQ
-  if (projectType === "villa") designFeePerM2 = 420;
-  if (projectType === "commercial") designFeePerM2 = 550;
-  if (projectType === "interior") designFeePerM2 = 600;
-
-  const estimatedDesignFee = Math.round(builtUpArea * designFeePerM2);
-
-  // Site supervision fee (monthly / percentage based - approx 3-4% of construction skeleton or 250 EGP/m²)
-  const estimatedSupervisionFee = Math.round(builtUpArea * 280);
-
-  // Duration in months
-  let expectedDurationMonths = 12;
-  if (builtUpArea < 500) expectedDurationMonths = 8;
-  else if (builtUpArea > 2000) expectedDurationMonths = 18;
+  let durationMonths = 8;
+  if (params.builtUpArea > 800) durationMonths = 12;
+  if (params.builtUpArea > 2000) durationMonths = 18;
 
   return {
-    estimatedDesignFee: scope === "supervision_only" ? 0 : estimatedDesignFee,
-    estimatedSupervisionFee: (scope === "full_design" ? 0 : estimatedSupervisionFee),
-    estimatedConstructionBudgetMin,
-    estimatedConstructionBudgetMax,
-    expectedDurationMonths,
-    breakdown: {
-      architecturalPercent: 40,
-      structuralPercent: 30,
-      mepPercent: 20,
-      permittingPercent: 10,
-    }
+    estimatedDesignFee: designFee,
+    estimatedSupervisionFee: supervisionFee,
+    estimatedConstructionBudgetMin: constructionMin,
+    estimatedConstructionBudgetMax: constructionMax,
+    expectedDurationMonths: durationMonths,
+    consultantSyndicateStamp: true,
   };
 }

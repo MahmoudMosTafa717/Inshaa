@@ -14,23 +14,20 @@ import {
   ArrowUpLeft
 } from "lucide-react";
 import { 
-  ProjectType, 
-  ScopeType, 
-  LocationZone, 
+  CostEstimatorParams,
   calculateProjectEstimates 
 } from "@/lib/data/costEstimator";
 import { formatCurrencyEGP, formatArea } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Slider } from "@/components/ui/Slider";
 import { Button } from "@/components/ui/Button";
-import { FadeInView } from "@/components/motion/FadeInView";
 
 export function CostEstimatorWidget() {
-  const [projectType, setProjectType] = useState<ProjectType>("villa");
+  const [projectType, setProjectType] = useState<CostEstimatorParams["projectType"]>("villa");
   const [builtUpArea, setBuiltUpArea] = useState<number>(650);
-  const [scope, setScope] = useState<ScopeType>("design_and_supervision");
-  const [location, setLocation] = useState<LocationZone>("new_cairo");
-  const [finishLevel, setFinishLevel] = useState<"semi_finished" | "luxury" | "ultra_luxury">("luxury");
+  const [scope, setScope] = useState<CostEstimatorParams["scope"]>("design_and_supervision");
+  const [location, setLocation] = useState<CostEstimatorParams["location"]>("fayoum");
+  const [finishLevel, setFinishLevel] = useState<"standard" | "luxury" | "ultra_luxury">("luxury");
 
   const results = calculateProjectEstimates({
     projectType,
@@ -42,73 +39,74 @@ export function CostEstimatorWidget() {
 
   const projectTypes = [
     { id: "villa", label: "فيلا سكنية فاخرة", icon: "🏡" },
-    { id: "residential_building", label: "عمارة سكنية", icon: "🏢" },
+    { id: "residential_building", label: "عمارة / برج سكني", icon: "🏢" },
     { id: "commercial", label: "مبنى تجاري / إداري", icon: "🏬" },
     { id: "interior", label: "تشطيب وديكور داخلي", icon: "🛋️" },
   ];
 
   const scopes = [
-    { id: "design_and_supervision", label: "تصميم كامل + إشراف هندسي", note: "الخيار الموصى به" },
-    { id: "full_design", label: "تصميم معماري وإنشائي وتراخيص فقط" },
-    { id: "supervision_only", label: "إشراف هندسي ميداني واستلام خرسانات" },
+    { id: "design_and_supervision", label: "تصميم كامل + إشراف هندسي موقعي", note: "الخيار الموصى به" },
+    { id: "full_design", label: "تصميم معماري وإنشائي واستخراج رخصة البناء" },
+    { id: "supervision_only", label: "إشراف هندسي ميداني واستلام صب الخرسانات" },
   ];
 
   const locations = [
-    { id: "new_cairo", label: "التجمع الخامس والقاهرة الجديدة" },
-    { id: "sheikh_zayed", label: "الشيخ زايد و 6 أكتوبر" },
+    { id: "fayoum", label: "محافظة الفيوم (الفيوم الجديدة / المسلة / قارون)" },
+    { id: "october", label: "مدينة 6 أكتوبر والتوسعات" },
+    { id: "sheikh_zayed", label: "مدينة الشيخ زايد ومحور البستان" },
     { id: "new_capital", label: "العاصمة الإدارية الجديدة" },
-    { id: "other", label: "الساحل الشمالي ومحافظات مصر" },
+    { id: "new_cairo", label: "القاهرة الجديدة والتجمع الخامس" },
   ];
 
   const finishLevels = [
-    { id: "semi_finished", label: "نصف تشطيب (محارة وحلوق)" },
+    { id: "standard", label: "نصف تشطيب (محارة وحلوق)" },
     { id: "luxury", label: "تشطيب فاخر (Super Lux)" },
     { id: "ultra_luxury", label: "ألترا لوكس ومواد مستوردة" },
   ];
 
   const generateWhatsAppMessage = () => {
-    const text = `مرحباً مكتب إنشاء للاستشارات الهندسية،
-قمت بحساب تقديري لمشروعي عبر الموقع الإلكتروني:
+    const text = `مرحباً مكتب إنشاء للهندسة (م. عماد الدين أمين)،
+قمت بحساب تقديري لمشروعي عبر حاسبة الموقع الإلكتروني:
 - نوع المشروع: ${projectTypes.find(p => p.id === projectType)?.label}
 - المساحة الإجمالية: ${builtUpArea} م²
 - الموقع: ${locations.find(l => l.id === location)?.label}
 - نطاق العمل: ${scopes.find(s => s.id === scope)?.label}
 - أتعاب التصميم التقديرية: ${formatCurrencyEGP(results.estimatedDesignFee)}
-أرغب في حجز جلسة استشارية هندسية لمراجعة المخططات ومناقشة تفاصيل المشروع.`;
+أرغب في حجز جلسة استشارية هندسية لمراجعة كروكي الأرض ومناقشة تفاصيل المشروع.`;
     return `https://wa.me/201001234567?text=${encodeURIComponent(text)}`;
   };
 
   return (
-    <section id="estimator" className="py-20 bg-white border-b border-slate-200">
+    <section id="estimator" className="py-20 bg-paper-50 border-b border-paper-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           number="04"
           tag="حاسبة المشروعات الهندسية"
-          title="احسب تكلفة تصميم ومقايسة مشروعك في دقيقة"
-          subtitle="أداة هندسية تفاعلية تمنحك تقديراً دقيقاً لأتعاب التصميم، الإشراف الهندسي، وميزانية التشييد المتوقعة بالسوق المصري 2025/2026."
+          title="احسب تكلفة تصميم ومقايسة مشروعك بدقة"
+          subtitle="أداة هندسية تفاعلية تمنحك تقديراً دقيقاً لأتعاب التصميم، الإشراف الهندسي، وميزانية التشييد المتوقعة بالسوق المصري بمحافظة الفيوم وأكتوبر وزايد."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Controls Input Column (7 cols) */}
-          <div className="lg:col-span-7 bg-paper-50 border-2 border-slate-900 p-6 sm:p-8 cad-border shadow-soft-elevation space-y-6">
+          <div className="lg:col-span-7 bg-white border-2 border-slate-900 p-6 sm:p-8 cad-border shadow-soft-elevation space-y-6">
             {/* 1. Project Type Selector */}
             <div>
-              <label className="block text-xs font-bold font-mono text-slate-700 mb-2 uppercase">
+              <label className="block text-xs font-bold font-mono text-slate-800 mb-2 uppercase">
                 1. اختر نوع المشروع:
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {projectTypes.map((type) => (
                   <button
                     key={type.id}
-                    onClick={() => setProjectType(type.id as ProjectType)}
-                    className={`p-3 text-center transition-all flex flex-col items-center justify-center gap-1.5 border ${
+                    onClick={() => setProjectType(type.id as CostEstimatorParams["projectType"])}
+                    className={`p-3 text-center transition-all flex flex-col items-center justify-center gap-1.5 border font-display ${
                       projectType === type.id
-                        ? "bg-slate-900 text-white border-slate-900 shadow-architectural font-bold"
-                        : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
+                        ? "bg-brick-700 text-white border-brick-700 shadow-architectural font-bold"
+                        : "bg-paper-50 text-slate-700 border-paper-300 hover:border-slate-400"
                     }`}
                   >
                     <span className="text-xl">{type.icon}</span>
-                    <span className="text-xs">{type.label}</span>
+                    <span className="text-xs font-semibold">{type.label}</span>
                   </button>
                 ))}
               </div>
@@ -117,10 +115,10 @@ export function CostEstimatorWidget() {
             {/* 2. Built Area Slider */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-bold font-mono text-slate-700 uppercase">
+                <label className="text-xs font-bold font-mono text-slate-800 uppercase">
                   2. مسطح المباني الإجمالي (م²):
                 </label>
-                <span className="text-lg font-extrabold font-mono text-amber-700 bg-amber-100 px-3 py-0.5 border border-amber-300">
+                <span className="text-lg font-extrabold font-mono text-brick-700 bg-brick-50 px-3 py-0.5 border border-brick-300">
                   {formatArea(builtUpArea)}
                 </span>
               </div>
@@ -135,23 +133,23 @@ export function CostEstimatorWidget() {
 
             {/* 3. Scope of Work */}
             <div>
-              <label className="block text-xs font-bold font-mono text-slate-700 mb-2 uppercase">
+              <label className="block text-xs font-bold font-mono text-slate-800 mb-2 uppercase">
                 3. نطاق الخدمات الاستشارية المطلوبة:
               </label>
               <div className="space-y-2">
                 {scopes.map((s) => (
                   <button
                     key={s.id}
-                    onClick={() => setScope(s.id as ScopeType)}
-                    className={`w-full p-3 text-right text-xs sm:text-sm font-medium border flex items-center justify-between transition-all ${
+                    onClick={() => setScope(s.id as CostEstimatorParams["scope"])}
+                    className={`w-full p-3 text-right text-xs sm:text-sm font-medium border flex items-center justify-between transition-all font-display ${
                       scope === s.id
-                        ? "bg-amber-50 border-amber-600 text-amber-950 font-bold"
-                        : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+                        ? "bg-brick-50 border-brick-700 text-brick-950 font-bold"
+                        : "bg-paper-50 border-paper-300 text-slate-700 hover:bg-paper-100"
                     }`}
                   >
                     <span>{s.label}</span>
                     {s.note && (
-                      <span className="text-[10px] font-mono bg-amber-600 text-white px-2 py-0.5">
+                      <span className="text-[10px] font-mono bg-desert-600 text-white px-2 py-0.5 font-bold">
                         {s.note}
                       </span>
                     )}
@@ -162,18 +160,18 @@ export function CostEstimatorWidget() {
 
             {/* 4. Project Location */}
             <div>
-              <label className="block text-xs font-bold font-mono text-slate-700 mb-2 uppercase">
-                4. موقع المشروع (الجهاز المختص بالتراخيص):
+              <label className="block text-xs font-bold font-mono text-slate-800 mb-2 uppercase">
+                4. موقع المشروع (المحافظة / المدينة):
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {locations.map((loc) => (
                   <button
                     key={loc.id}
-                    onClick={() => setLocation(loc.id as LocationZone)}
-                    className={`p-2.5 text-right text-xs border transition-all ${
+                    onClick={() => setLocation(loc.id as CostEstimatorParams["location"])}
+                    className={`p-2.5 text-right text-xs border transition-all font-display ${
                       location === loc.id
-                        ? "bg-slate-900 text-white border-slate-900 font-bold"
-                        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                        ? "bg-slate-900 text-white border-slate-900 font-bold shadow-sm"
+                        : "bg-paper-50 text-slate-700 border-paper-300 hover:bg-paper-100"
                     }`}
                   >
                     ✦ {loc.label}
@@ -185,7 +183,7 @@ export function CostEstimatorWidget() {
             {/* 5. Finishing Level (if applicable) */}
             {projectType !== "interior" && (
               <div>
-                <label className="block text-xs font-bold font-mono text-slate-700 mb-2 uppercase">
+                <label className="block text-xs font-bold font-mono text-slate-800 mb-2 uppercase">
                   5. مستوى التشطيب المستهدف:
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -193,10 +191,10 @@ export function CostEstimatorWidget() {
                     <button
                       key={lvl.id}
                       onClick={() => setFinishLevel(lvl.id as any)}
-                      className={`p-2 text-center text-xs border transition-all ${
+                      className={`p-2 text-center text-xs border transition-all font-display ${
                         finishLevel === lvl.id
-                          ? "bg-amber-600 text-white border-amber-600 font-bold"
-                          : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                          ? "bg-desert-600 text-white border-desert-600 font-bold"
+                          : "bg-paper-50 text-slate-700 border-paper-300 hover:bg-paper-100"
                       }`}
                     >
                       {lvl.label}
@@ -210,7 +208,7 @@ export function CostEstimatorWidget() {
           {/* Results Summary Box (5 cols) */}
           <div className="lg:col-span-5 bg-slate-900 text-white p-6 sm:p-8 border-2 border-slate-900 shadow-2xl space-y-6">
             <div className="border-b border-slate-800 pb-4">
-              <span className="text-xs font-mono text-amber-400 font-bold block mb-1">
+              <span className="text-xs font-mono text-desert-400 font-bold block mb-1">
                 {"//"} التقرير التقديري الأولي للمشروع
               </span>
               <h3 className="text-xl font-bold font-display text-white">
@@ -225,10 +223,10 @@ export function CostEstimatorWidget() {
                   <div className="text-xs text-slate-400 font-mono mb-1">
                     أتعاب التصميم والتراخيص ونوتة الحسابات:
                   </div>
-                  <div className="text-2xl font-extrabold font-mono text-amber-400">
+                  <div className="text-2xl font-black font-mono text-desert-400">
                     {formatCurrencyEGP(results.estimatedDesignFee)}
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-1">
+                  <div className="text-[11px] text-slate-400 mt-1 font-sans">
                     تشمل: معماري 1:50 + إنشائي ECP + شبكات MEP + رخصة البناء
                   </div>
                 </div>
@@ -239,10 +237,10 @@ export function CostEstimatorWidget() {
                   <div className="text-xs text-slate-400 font-mono mb-1">
                     أتعاب الإشراف الميداني واستلام الصبات:
                   </div>
-                  <div className="text-2xl font-extrabold font-mono text-blueprint-400">
+                  <div className="text-2xl font-black font-mono text-petroleum-400">
                     {formatCurrencyEGP(results.estimatedSupervisionFee)}
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-1">
+                  <div className="text-[11px] text-slate-400 mt-1 font-sans">
                     تشمل: مهندس مقيم/زيارات + مكعبات الخرسانة + محاضر الاستلام
                   </div>
                 </div>
@@ -252,11 +250,11 @@ export function CostEstimatorWidget() {
                 <div className="flex justify-between text-xs font-mono text-slate-400">
                   <span>ميزانية التشييد التقديرية (بناء وتشطيب):</span>
                 </div>
-                <div className="text-lg font-bold font-mono text-white">
+                <div className="text-base sm:text-lg font-bold font-mono text-white">
                   {formatCurrencyEGP(results.estimatedConstructionBudgetMin)} إلى {formatCurrencyEGP(results.estimatedConstructionBudgetMax)}
                 </div>
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-400 pt-2 border-t border-slate-800">
-                  <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+                  <Clock className="w-4 h-4 text-desert-400 shrink-0" />
                   <span>المدة الزمنية التقديرية: ~{results.expectedDurationMonths} شهراً</span>
                 </div>
               </div>
@@ -265,7 +263,7 @@ export function CostEstimatorWidget() {
             {/* Direct WhatsApp Call to Action */}
             <div className="space-y-3 pt-2">
               <Button
-                variant="amber"
+                variant="primary"
                 size="lg"
                 href={generateWhatsAppMessage()}
                 external
@@ -279,9 +277,9 @@ export function CostEstimatorWidget() {
                 variant="secondary"
                 size="md"
                 href="/contact"
-                className="w-full justify-center text-slate-900 bg-white hover:bg-slate-100"
+                className="w-full justify-center text-slate-900 bg-white hover:bg-paper-100 font-bold"
               >
-                <span>حجز موعد بمقر المكتب بالتجمع الخامس</span>
+                <span>حجز موعد بمقر المكتب بالفيوم أو أكتوبر</span>
                 <ArrowUpLeft className="w-4 h-4 mr-1.5" />
               </Button>
             </div>

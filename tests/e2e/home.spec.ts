@@ -3,9 +3,9 @@ import { test, expect } from "@playwright/test";
 test.describe("Inshaa Engineering Homepage & Core Flow", () => {
   test("should load the homepage with correct Arabic title and syndicate ticker", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/مكتب إنشاء للاستشارات الهندسية/);
+    await expect(page).toHaveTitle(/مكتب إنشاء للهندسة/);
 
-    const ticker = page.locator("text=سجل استشاري نقابة المهندسين المصرية");
+    const ticker = page.locator("text=مكتب إنشاء للهندسة // م. عماد الدين أمين");
     await expect(ticker).toBeVisible();
 
     const heroHeading = page.locator("h1");

@@ -10,18 +10,54 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#FAFAF8",
+        background: "#FAF8F5",
         foreground: "#0F172A",
         paper: {
-          50: "#FCFCFA",
-          100: "#F7F6F2",
-          200: "#EFECE6",
-          300: "#E2DDD5",
-          400: "#CBC2B4",
+          50: "#FAF8F5",
+          100: "#F4F0E8",
+          200: "#EBE5D8",
+          300: "#DDD5C4",
+          400: "#C8BDAB",
         },
-        slate: {
-          850: "#131C2E",
-          950: "#080D1A",
+        crimson: {
+          50: "#FFF1F2",
+          100: "#FFE4E6",
+          500: "#F43F5E",
+          600: "#E11D48",
+          700: "#BE123C",
+          800: "#9F1239",
+          900: "#881337",
+        },
+        brick: {
+          50: "#FFF7ED",
+          100: "#FFEDD5",
+          500: "#F97316",
+          600: "#EA580C",
+          700: "#C2410C",
+          800: "#9A3412",
+          900: "#7C2D12",
+        },
+        desert: {
+          50: "#FFFDF5",
+          100: "#FEF9E7",
+          200: "#FDF1CA",
+          300: "#FCE59F",
+          400: "#F9D15F",
+          500: "#F59E0B",
+          600: "#D97706",
+          700: "#B45309",
+          800: "#8D4107",
+          900: "#6B3205",
+        },
+        petroleum: {
+          50: "#F0FDF4",
+          100: "#DCFCE7",
+          500: "#0EA5E9",
+          600: "#0284C7",
+          700: "#0E7490",
+          800: "#0F766E",
+          900: "#0C4A6E",
+          950: "#082F49",
         },
         blueprint: {
           50: "#F0F9FF",
@@ -45,16 +81,16 @@ const config: Config = {
         emerald: {
           500: "#10B981",
           600: "#059669",
-        }
+        },
       },
       fontFamily: {
+        display: ["var(--font-alexandria)", "Alexandria", "var(--font-cairo)", "sans-serif"],
         sans: ["var(--font-cairo)", "Cairo", "sans-serif"],
-        display: ["var(--font-ibm)", "IBM Plex Sans Arabic", "sans-serif"],
         mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
       },
       backgroundImage: {
         "grid-blueprint": "radial-gradient(#CBD5E1 1px, transparent 1px)",
-        "grid-dense": "linear-gradient(to right, #F1F5F9 1px, transparent 1px), linear-gradient(to bottom, #F1F5F9 1px, transparent 1px)",
+        "grid-dense": "linear-gradient(to right, #E2E8F0 1px, transparent 1px), linear-gradient(to bottom, #E2E8F0 1px, transparent 1px)",
       },
       backgroundSize: {
         "grid-blueprint": "24px 24px",
@@ -63,9 +99,10 @@ const config: Config = {
       boxShadow: {
         "architectural": "0 2px 0 0 #0F172A",
         "architectural-lg": "4px 4px 0 0 #0F172A",
+        "architectural-brick": "4px 4px 0 0 #C2410C",
         "architectural-amber": "4px 4px 0 0 #D97706",
         "soft-elevation": "0 10px 30px -10px rgba(15, 23, 42, 0.08)",
-      }
+      },
     },
   },
   plugins: [],
