@@ -38,7 +38,7 @@ export default function ProjectsDirectoryPage() {
           {/* Page Heading */}
           <div className="text-right max-w-3xl mb-12">
             <span className="text-xs font-mono font-bold text-amber-700 bg-amber-100 px-3 py-1 border border-amber-300 inline-block mb-3">
-              // سجل الإنجازات وسابقة الأعمال
+              {"//"} سجل الإنجازات وسابقة الأعمال
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-tight">
               مشروعات هندسية تعكس دقة المخطط وهيبة الواقع

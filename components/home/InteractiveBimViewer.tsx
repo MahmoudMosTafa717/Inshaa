@@ -153,7 +153,7 @@ export function InteractiveBimViewer() {
             {/* Technical Specs Grid */}
             <div className="bg-white border border-slate-200 p-4 space-y-2.5">
               <span className="text-xs font-mono font-bold text-slate-400 block mb-2">
-                // المواصفات الهندسية للطبقة:
+                {"//"} المواصفات الهندسية للطبقة:
               </span>
               {current.specs.map((spec, i) => (
                 <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-slate-100 last:border-0 font-mono">

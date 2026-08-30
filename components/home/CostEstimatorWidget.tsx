@@ -211,7 +211,7 @@ export function CostEstimatorWidget() {
           <div className="lg:col-span-5 bg-slate-900 text-white p-6 sm:p-8 border-2 border-slate-900 shadow-2xl space-y-6">
             <div className="border-b border-slate-800 pb-4">
               <span className="text-xs font-mono text-amber-400 font-bold block mb-1">
-                // التقرير التقديري الأولي للمشروع
+                {"//"} التقرير التقديري الأولي للمشروع
               </span>
               <h3 className="text-xl font-bold font-display text-white">
                 ملخص التكاليف الهندسية والإنشائية

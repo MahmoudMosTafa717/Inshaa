@@ -48,7 +48,7 @@ export function ServicesGrid() {
                   <CardHeader>
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-mono text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 border border-amber-200">
-                        {service.number} // تخصص
+                        {service.number} {"//"} تخصص
                       </span>
                       <div className="w-12 h-12 bg-slate-100 group-hover:bg-amber-600 group-hover:text-white transition-colors border border-slate-200 flex items-center justify-center text-slate-800">
                         <Icon className="w-6 h-6" />

@@ -31,7 +31,7 @@ export function TestimonialsSection() {
                   </div>
 
                   <p className="text-sm text-slate-700 leading-relaxed mb-6 italic">
-                    "{test.comment}"
+                    &ldquo;{test.comment}&rdquo;
                   </p>
                 </div>
 

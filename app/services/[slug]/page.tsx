@@ -89,7 +89,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
           <div className="bg-white border-2 border-slate-900 p-6 sm:p-10 cad-border shadow-soft-elevation mb-12">
             <div className="flex items-center gap-3 text-xs font-mono text-amber-700 mb-3">
               <span className="bg-amber-100 px-2 py-0.5 font-bold border border-amber-300">
-                {service.number} // تخصص استشاري
+                {service.number} {"//"} تخصص استشاري
               </span>
               <span>• {service.egyptianCodeCompliance}</span>
             </div>
@@ -120,7 +120,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
           <div className="bg-blueprint-50 border border-blueprint-300 p-6 sm:p-8 mb-12 relative overflow-hidden">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-blueprint-900 mb-2">
               <ShieldCheck className="w-4 h-4 text-blueprint-700" />
-              <span>// ملخص التوثيق الفني للخدمة (معتمد من مهندس استشاري):</span>
+              <span>{"//"} ملخص التوثيق الفني للخدمة (معتمد من مهندس استشاري):</span>
             </div>
             <p className="text-sm sm:text-base text-slate-800 leading-relaxed font-sans">
               {service.geoPassage}
@@ -183,7 +183,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             <div className="bg-white border border-slate-200 p-6 sm:p-8 mb-12">
               <div className="flex items-center gap-2 text-xs font-mono text-amber-700 mb-2">
                 <HelpCircle className="w-4 h-4" />
-                <span>// استفسارات متكررة حول {service.title}</span>
+                <span>{"//"} استفسارات متكررة حول {service.title}</span>
               </div>
               <h2 className="text-2xl font-bold text-slate-900 font-display mb-6">
                 الأسئلة الشائعة وإجابات المهندس الاستشاري

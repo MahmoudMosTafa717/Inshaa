@@ -14,7 +14,7 @@ export function ConsultationCta() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4 text-right">
               <span className="text-xs font-mono font-bold text-amber-400 bg-amber-950/80 px-3 py-1 border border-amber-800/80 inline-block">
-                // استشارة هندسية أولية مجانية
+                {"//"} استشارة هندسية أولية مجانية
               </span>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-display leading-tight">

@@ -165,7 +165,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             <div className="lg:col-span-5 bg-slate-900 text-white p-6 sm:p-8 border-2 border-slate-900 shadow-xl space-y-6">
               <div>
                 <span className="text-xs font-mono text-amber-400 font-bold block mb-1">
-                  // بطاقة الحصر الهندسي والمواصفات
+                  {"//"} بطاقة الحصر الهندسي والمواصفات
                 </span>
                 <h3 className="text-xl font-bold font-display">
                   البيانات الإنشائية والمعمارية
