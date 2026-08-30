@@ -36,7 +36,7 @@ export default function CalculatorPage() {
           {/* Header Banner */}
           <div className="text-right max-w-3xl mb-8">
             <span className="text-xs font-mono font-bold text-amber-700 bg-amber-100 px-3 py-1 border border-amber-300 inline-block mb-3">
-              // الأداة الهندسية التفاعلية
+              {"//"} الأداة الهندسية التفاعلية
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-tight">
               حاسبة تكاليف ومقايسات المشروعات الهندسية بمصر
@@ -55,7 +55,7 @@ export default function CalculatorPage() {
           <div className="bg-white border-2 border-slate-900 p-8 sm:p-12 cad-border shadow-soft-elevation">
             <div className="flex items-center gap-2 text-xs font-mono text-amber-700 mb-2">
               <HelpCircle className="w-4 h-4" />
-              <span>// كيف نحسب التكاليف الهندسية؟</span>
+              <span>{"//"} كيف نحسب التكاليف الهندسية؟</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-display mb-8">
               الأسس الهندسية المعتمدة لاحتساب التكاليف والمقايسات

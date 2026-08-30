@@ -172,7 +172,7 @@ export function HeroSection() {
         <div className="mt-14 pt-8 border-t border-slate-200/80">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <span className="text-xs font-mono text-slate-500 shrink-0 font-semibold">
-              // مناطق المشروعات المعتمدة وتراخيص البناء:
+              {"//"} مناطق المشروعات المعتمدة وتراخيص البناء:
             </span>
             <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2">
               {cityBadges.map((city) => (

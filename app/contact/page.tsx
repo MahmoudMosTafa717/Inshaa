@@ -53,7 +53,7 @@ export default function ContactPage() {
           {/* Header */}
           <div className="text-right max-w-3xl mb-12">
             <span className="text-xs font-mono font-bold text-amber-700 bg-amber-100 px-3 py-1 border border-amber-300 inline-block mb-3">
-              // قنوات التواصل وحجز الاستشارات
+              {"//"} قنوات التواصل وحجز الاستشارات
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-tight">
               تواصل مع فريقنا الهندسي أو احجز موعداً بمقر المكتب
@@ -228,7 +228,7 @@ export default function ContactPage() {
               <div className="bg-slate-900 text-white p-6 sm:p-8 border-2 border-slate-900 shadow-xl space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono text-amber-400 font-bold">
                   <Building className="w-4 h-4" />
-                  <span>// المقر الرئيسي - القاهرة الجديدة</span>
+                  <span>{"//"} المقر الرئيسي - القاهرة الجديدة</span>
                 </div>
                 <h3 className="text-xl font-bold font-display text-white">
                   مكتب التجمع الخامس
@@ -270,7 +270,7 @@ export default function ContactPage() {
               <div className="bg-white border-2 border-slate-900 p-6 sm:p-8 cad-border shadow-soft-elevation space-y-3">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500 font-bold">
                   <Building className="w-4 h-4" />
-                  <span>// فرع غرب القاهرة</span>
+                  <span>{"//"} فرع غرب القاهرة</span>
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 font-display">
                   مكتب الشيخ زايد و 6 أكتوبر

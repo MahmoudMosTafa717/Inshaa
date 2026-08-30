@@ -49,7 +49,7 @@ export default function ServicesPage() {
           {/* Header */}
           <div className="text-right max-w-3xl mb-14">
             <span className="text-xs font-mono font-bold text-amber-700 bg-amber-100 px-3 py-1 border border-amber-300 inline-block mb-3">
-              // دليل الخدمات الهندسية المعتمدة
+              {"//"} دليل الخدمات الهندسية المعتمدة
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-tight">
               خدمات استشارية متكاملة تضمن دقة التصميم وسلامة التنفيذ
@@ -69,7 +69,7 @@ export default function ServicesPage() {
                     <CardHeader>
                       <div className="flex items-center justify-between mb-4">
                         <span className="font-mono text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 border border-amber-200">
-                          {service.number} // تخصص
+                          {service.number} {"//"} تخصص
                         </span>
                         <div className="w-12 h-12 bg-slate-100 group-hover:bg-amber-600 group-hover:text-white transition-colors border border-slate-200 flex items-center justify-center text-slate-800">
                           <Icon className="w-6 h-6" />
@@ -123,7 +123,7 @@ export default function ServicesPage() {
           <div className="bg-white border-2 border-slate-900 p-8 sm:p-12 cad-border shadow-soft-elevation">
             <div className="flex items-center gap-2 text-xs font-mono text-amber-700 mb-2">
               <HelpCircle className="w-4 h-4" />
-              <span>// الأسئلة الشائعة حول الاستشارات الهندسية والتراخيص بمصر</span>
+              <span>{"//"} الأسئلة الشائعة حول الاستشارات الهندسية والتراخيص بمصر</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-display mb-8">
               كل ما تحتاج معرفته عن استخراج التراخيص والإشراف الهندسي

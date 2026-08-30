@@ -40,7 +40,7 @@ export function SectionHeading({
               {number}
             </span>
           )}
-          {tag && <span>// {tag}</span>}
+          {tag && <span>{"//"} {tag}</span>}
           <div className="h-px bg-slate-200 flex-1 max-w-[80px]" />
         </div>
       )}

@@ -43,7 +43,7 @@ export default function AboutPage() {
           {/* Header Banner */}
           <div className="text-right max-w-3xl mb-14">
             <span className="text-xs font-mono font-bold text-amber-700 bg-amber-100 px-3 py-1 border border-amber-300 inline-block mb-3">
-              // الهوية والتاريخ الاستشاري
+              {"//"} الهوية والتاريخ الاستشاري
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-tight">
               أكثر من 15 عاماً من الريادة في التصميم الهندسي والإشراف بمصر
@@ -96,7 +96,7 @@ export default function AboutPage() {
           <div className="bg-slate-900 text-white p-8 sm:p-12 border-2 border-slate-900 shadow-xl mb-16 space-y-6">
             <div>
               <span className="text-xs font-mono text-amber-400 font-bold block mb-1">
-                // الاعتمادات والتراخيص الرسمية بمصر
+                {"//"} الاعتمادات والتراخيص الرسمية بمصر
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold font-display">
                 السجلات والشهادات النقابية المعتمدة
@@ -150,7 +150,7 @@ export default function AboutPage() {
           <div className="mb-16">
             <div className="text-right max-w-2xl mb-8">
               <span className="text-xs font-mono font-bold text-amber-700 bg-amber-100 px-3 py-1 border border-amber-300 inline-block mb-2">
-                // القيادات والمهندسون الاستشاريون
+                {"//"} القيادات والمهندسون الاستشاريون
               </span>
               <h2 className="text-3xl font-bold text-slate-900 font-display">
                 فريق يقود مشروعاتك بأعلى درجات الكفاءة
