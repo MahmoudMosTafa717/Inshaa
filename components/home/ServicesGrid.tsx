@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { 
@@ -6,11 +8,11 @@ import {
   HardHat, 
   Cpu, 
   Palette, 
-  FileSpreadsheet,
-  ArrowUpLeft,
-  Check
+  FileSpreadsheet, 
+  ArrowUpLeft, 
+  Check 
 } from "lucide-react";
-import { servicesData } from "@/lib/data/services";
+import { useAdminData } from "@/lib/context/AdminDataContext";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/Card";
 import { FadeInView } from "@/components/motion/FadeInView";
@@ -25,6 +27,9 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export function ServicesGrid() {
+  const { state } = useAdminData();
+  const { services } = state;
+
   return (
     <section className="py-20 bg-paper-50 border-b border-paper-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,7 +41,7 @@ export function ServicesGrid() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {servicesData.map((service, idx) => {
+          {services.map((service, idx) => {
             const Icon = iconMap[service.icon] || Compass;
             return (
               <FadeInView key={service.id} delay={idx * 0.08}>

@@ -13,23 +13,24 @@ import {
   HelpCircle,
   ArrowUpLeft
 } from "lucide-react";
-import { 
-  CostEstimatorParams,
-  calculateProjectEstimates 
-} from "@/lib/data/costEstimator";
+import { CostEstimatorParams } from "@/lib/data/costEstimator";
+import { useAdminData } from "@/lib/context/AdminDataContext";
 import { formatCurrencyEGP, formatArea } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Slider } from "@/components/ui/Slider";
 import { Button } from "@/components/ui/Button";
 
 export function CostEstimatorWidget() {
+  const { state, calculateEstimates } = useAdminData();
+  const { identity } = state;
+
   const [projectType, setProjectType] = useState<CostEstimatorParams["projectType"]>("villa");
   const [builtUpArea, setBuiltUpArea] = useState<number>(650);
   const [scope, setScope] = useState<CostEstimatorParams["scope"]>("design_and_supervision");
   const [location, setLocation] = useState<CostEstimatorParams["location"]>("fayoum");
   const [finishLevel, setFinishLevel] = useState<"standard" | "luxury" | "ultra_luxury">("luxury");
 
-  const results = calculateProjectEstimates({
+  const results = calculateEstimates({
     projectType,
     builtUpArea,
     scope,
@@ -65,7 +66,8 @@ export function CostEstimatorWidget() {
   ];
 
   const generateWhatsAppMessage = () => {
-    const text = `مرحباً مكتب إنشاء للهندسة (م. عماد الدين أمين)،
+    const rawPhone = identity.phonePrimary.replace(/[^0-9]/g, "");
+    const text = `مرحباً ${identity.name} (${identity.leadConsultant})،
 قمت بحساب تقديري لمشروعي عبر حاسبة الموقع الإلكتروني:
 - نوع المشروع: ${projectTypes.find(p => p.id === projectType)?.label}
 - المساحة الإجمالية: ${builtUpArea} م²
@@ -73,7 +75,7 @@ export function CostEstimatorWidget() {
 - نطاق العمل: ${scopes.find(s => s.id === scope)?.label}
 - أتعاب التصميم التقديرية: ${formatCurrencyEGP(results.estimatedDesignFee)}
 أرغب في حجز جلسة استشارية هندسية لمراجعة كروكي الأرض ومناقشة تفاصيل المشروع.`;
-    return `https://wa.me/201001234567?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/2${rawPhone}?text=${encodeURIComponent(text)}`;
   };
 
   return (

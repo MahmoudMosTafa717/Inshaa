@@ -9,17 +9,21 @@ import {
   Menu, 
   X, 
   Calculator, 
-  MessageSquare,
-  ArrowUpLeft,
-  MapPin,
-  ShieldCheck
+  MessageSquare, 
+  ArrowUpLeft, 
+  MapPin, 
+  ShieldCheck,
+  Settings
 } from "lucide-react";
+import { useAdminData } from "@/lib/context/AdminDataContext";
 import { Button } from "@/components/ui/Button";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { state } = useAdminData();
+  const { identity } = state;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +42,11 @@ export function Navbar() {
     { name: "تواصل معنا", href: "/contact" },
   ];
 
+  // Don't show public navbar on admin dashboard pages
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <>
       {/* Top Engineering Syndicate & Regional Presence Bar */}
@@ -46,23 +55,32 @@ export function Navbar() {
           <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] sm:text-xs">
             <span className="inline-flex items-center gap-1.5 text-desert-400 font-mono font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              مكتب إنشاء للهندسة // م. عماد الدين أمين (سجل استشاري 1248/خ)
+              {identity.name} {"//"} {identity.leadConsultant} ({identity.syndicateNumber.split("-")[0]})
             </span>
             <span className="hidden md:inline text-slate-600">|</span>
             <span className="hidden md:inline-flex items-center gap-1 text-slate-300">
               <MapPin className="w-3 h-3 text-brick-500" />
-              نطاق العمل: الفيوم (المقر الرئيسي) • 6 أكتوبر • الشيخ زايد • العاصمة الإدارية
+              نطاق العمل: {identity.primaryLocations.join(" • ")}
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <a
-              href="tel:+201001234567"
+              href={`tel:${identity.phonePrimary.replace(/[^0-9+]/g, "")}`}
               className="inline-flex items-center gap-1.5 text-slate-200 hover:text-desert-400 font-mono text-xs transition-colors"
             >
               <PhoneCall className="w-3 h-3 text-desert-400" />
-              <span>0100 123 4567</span>
+              <span>{identity.phonePrimary}</span>
             </a>
+
+            <Link
+              href="/admin"
+              className="hidden lg:inline-flex items-center gap-1 text-[10px] font-mono text-slate-400 hover:text-desert-400 transition-colors bg-slate-800 px-2 py-0.5"
+              title="لوحة تحكم المكتب"
+            >
+              <Settings className="w-2.5 h-2.5" />
+              <span>الإدارة</span>
+            </Link>
           </div>
         </div>
       </header>
@@ -95,14 +113,14 @@ export function Navbar() {
             <div className="flex flex-col text-right">
               <div className="flex items-center gap-2">
                 <span className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight font-display group-hover:text-brick-700 transition-colors">
-                  مكتب إنـشــاء للـهـنـدسـة
+                  {identity.name}
                 </span>
                 <span className="text-[11px] px-2 py-0.5 bg-brick-50 text-brick-800 border border-brick-300 font-mono font-bold">
                   استشاري
                 </span>
               </div>
               <span className="text-xs text-slate-600 font-mono">
-                مهندس استشاري / <strong className="text-slate-900 font-semibold">عماد الدين أمين</strong>
+                <strong className="text-slate-900 font-semibold">{identity.leadConsultant}</strong>
               </span>
             </div>
           </Link>

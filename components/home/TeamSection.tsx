@@ -1,24 +1,29 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { Award, ShieldCheck, UserCheck } from "lucide-react";
-import { teamData } from "@/lib/data/team";
+import { useAdminData } from "@/lib/context/AdminDataContext";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { FadeInView } from "@/components/motion/FadeInView";
 
 export function TeamSection() {
+  const { state } = useAdminData();
+  const { team, identity } = state;
+
   return (
     <section className="py-20 bg-paper-50 border-b border-paper-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           number="05"
           tag="الكادر الهندسي الاستشاري"
-          title="بقيادة مهندس استشاري / عماد الدين أمين"
-          subtitle="يقود مشروعاتنا نخبة من المهندسين الاستشاريين المقيدين بنقابة المهندسين المصرية بخبرات تمتد لأكثر من 20 عاماً في تصميم وتنفيذ المنشآت بمحافظة الفيوم وأكتوبر وزايد."
+          title={`بقيادة ${identity.leadConsultant}`}
+          subtitle={`يقود مشروعاتنا نخبة من المهندسين الاستشاريين المقيدين بنقابة المهندسين المصرية (${identity.syndicateNumber}) بخبرات تمتد لأكثر من 20 عاماً في تصميم وتنفيذ المنشآت بمحافظة الفيوم وأكتوبر وزايد.`}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {teamData.map((member, idx) => (
+          {team.map((member, idx) => (
             <FadeInView key={member.id} delay={idx * 0.1}>
               <Card variant="default" className="h-full flex flex-col justify-between hover:border-slate-900 group">
                 <div>

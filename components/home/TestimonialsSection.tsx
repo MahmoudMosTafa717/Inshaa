@@ -1,23 +1,28 @@
+"use client";
+
 import React from "react";
 import { Star, Quote, MapPin } from "lucide-react";
-import { testimonialsData } from "@/lib/data/testimonials";
+import { useAdminData } from "@/lib/context/AdminDataContext";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { FadeInView } from "@/components/motion/FadeInView";
 
 export function TestimonialsSection() {
+  const { state } = useAdminData();
+  const { testimonials, identity } = state;
+
   return (
     <section className="py-20 bg-white border-b border-paper-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           number="06"
           tag="ثقة العملاء والمطورين"
-          title="آراء عملائنا في الفيوم، 6 أكتوبر، والشيخ زايد"
-          subtitle="شهادات حقيقية من أصحاب الأبراج، الفلل، ورجال الأعمال الذين وثقوا بمكتب إنشاء والمهندس عماد الدين أمين لتصميم وإدارة مشروعاتهم."
+          title={`آراء عملائنا في ${identity.primaryLocations.slice(0, 3).join("، ")}`}
+          subtitle={`شهادات حقيقية من أصحاب الأبراج، الفلل، ورجال الأعمال الذين وثقوا بـ ${identity.name} والمهندس ${identity.leadConsultant.split("/")[1] || identity.leadConsultant} لتصميم وإدارة مشروعاتهم.`}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonialsData.map((test, idx) => (
+          {testimonials.map((test, idx) => (
             <FadeInView key={test.id} delay={idx * 0.1}>
               <Card variant="default" className="p-6 h-full flex flex-col justify-between hover:border-brick-700 transition-colors">
                 <div>

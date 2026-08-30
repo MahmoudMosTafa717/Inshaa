@@ -8,10 +8,10 @@ import {
   MapPin, 
   Maximize2, 
   ArrowUpLeft, 
-  Layers,
-  Sparkles
+  Layers, 
+  Sparkles 
 } from "lucide-react";
-import { projectsData, Project } from "@/lib/data/projects";
+import { useAdminData } from "@/lib/context/AdminDataContext";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -19,13 +19,15 @@ import { FadeInView } from "@/components/motion/FadeInView";
 
 export function PortfolioSection() {
   const [filter, setFilter] = useState<string>("all");
+  const { state } = useAdminData();
+  const { projects } = state;
 
   const filteredProjects = filter === "all"
-    ? projectsData
-    : projectsData.filter((p) => p.category === filter);
+    ? projects
+    : projects.filter((p) => p.category === filter);
 
   const categories = [
-    { id: "all", label: "جميع المشروعات (200+)" },
+    { id: "all", label: `جميع المشروعات (${projects.length})` },
     { id: "residential", label: "فيلات وسكني فاخر" },
     { id: "commercial", label: "أبراج ومراكز تجارية" },
     { id: "administrative", label: "مبانٍ ومقرات إدارية" },

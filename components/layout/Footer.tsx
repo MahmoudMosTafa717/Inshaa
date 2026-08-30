@@ -1,18 +1,31 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { 
   MapPin, 
   Phone, 
   Mail, 
   Clock, 
   ShieldCheck, 
-  Award,
-  ArrowUpLeft,
-  FileText
+  Award, 
+  ArrowUpLeft, 
+  FileText,
+  Lock
 } from "lucide-react";
-import { servicesData } from "@/lib/data/services";
+import { useAdminData } from "@/lib/context/AdminDataContext";
 
 export function Footer() {
+  const pathname = usePathname();
+  const { state } = useAdminData();
+  const { identity, services } = state;
+
+  // Don't render public footer on admin dashboard pages
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-slate-900 text-slate-300 border-t-4 border-brick-600">
       {/* Top Technical Certification Banner */}
@@ -25,7 +38,7 @@ export function Footer() {
               </div>
               <div>
                 <h4 className="text-white font-bold text-sm font-display">سجل استشاري نقابة المهندسين المصرية</h4>
-                <p className="text-xs text-slate-400 font-mono">سجل رقم 1248/خ - استشارات منشآت خرسانية وتصميم معماري</p>
+                <p className="text-xs text-slate-400 font-mono">سجل رقم {identity.syndicateNumber}</p>
               </div>
             </div>
 
@@ -65,21 +78,21 @@ export function Footer() {
               </div>
               <div>
                 <span className="text-xl font-bold text-white tracking-tight font-display block">
-                  مكتب إنـشــاء للـهـنـدسـة
+                  {identity.name}
                 </span>
                 <p className="text-xs text-desert-400 font-mono">
-                  مهندس استشاري / عماد الدين أمين
+                  {identity.leadConsultant}
                 </p>
               </div>
             </Link>
 
             <p className="text-sm text-slate-400 leading-relaxed max-w-md pt-2 font-sans">
-              بيت خبرة واستشارات هندسية ومعمارية معتمد يقدم خدمات التصميم المعماري والإنشائي، واستخراج تراخيص البناء، والإشراف الهندسي الميداني الدقيق على تنفيذ الفيلات والمشروعات السكنية والتجارية في محافظة الفيوم ومدينة 6 أكتوبر والشيخ زايد والعاصمة الإدارية.
+              {identity.description}
             </p>
 
             <div className="pt-2 text-xs font-mono text-slate-400 space-y-1">
-              <p>• السجل الاستشاري بالنقابة: 1248/خ - شعبة مدني وعمارة</p>
-              <p>• Engineering Establishment Office - IE</p>
+              <p>• {identity.syndicateNumber}</p>
+              <p>• {identity.englishName}</p>
             </div>
           </div>
 
@@ -89,7 +102,7 @@ export function Footer() {
               الخدمات الهندسية
             </h3>
             <ul className="space-y-2.5 text-sm">
-              {servicesData.map((service) => (
+              {services.map((service) => (
                 <li key={service.slug}>
                   <Link
                     href={`/services/${service.slug}`}
@@ -109,26 +122,13 @@ export function Footer() {
               مناطق العمل الرئيسية
             </h3>
             <ul className="space-y-2.5 text-sm text-slate-400">
-              <li>
-                <Link href="/projects" className="hover:text-white transition-colors">
-                  مشروعات محافظة الفيوم والفيوم الجديدة
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="hover:text-white transition-colors">
-                  فيلات وعمارات مدينة 6 أكتوبر
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="hover:text-white transition-colors">
-                  مولات ومجمعات الشيخ زايد
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="hover:text-white transition-colors">
-                  أبراج ومباني العاصمة الإدارية
-                </Link>
-              </li>
+              {identity.primaryLocations.map((loc, idx) => (
+                <li key={idx}>
+                  <Link href="/projects" className="hover:text-white transition-colors">
+                    مشروعات {loc}
+                  </Link>
+                </li>
+              ))}
               <li className="pt-3">
                 <Link
                   href="/calculator"
@@ -150,34 +150,34 @@ export function Footer() {
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-brick-500 shrink-0 mt-0.5" />
                 <span>
-                  <strong>المقر الرئيسي (الفيوم):</strong> منطقة المسلة، بالقرب من ديوان عام المحافظة، مدينة الفيوم.
+                  <strong>المقر الرئيسي:</strong> {identity.fayoumAddress}
                 </span>
               </div>
 
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-desert-400 shrink-0 mt-0.5" />
                 <span>
-                  <strong>فرع غرب القاهرة:</strong> مدينة 6 أكتوبر ومحور البستان بالشيخ زايد، الجيزة.
+                  <strong>فرع غرب القاهرة:</strong> {identity.octoberAddress}
                 </span>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-brick-400 shrink-0" />
-                <a href="tel:+201001234567" className="font-mono hover:text-white">
-                  +20 100 123 4567 / 0100 987 6543
+                <a href={`tel:${identity.phonePrimary.replace(/[^0-9+]/g, "")}`} className="font-mono hover:text-white">
+                  {identity.phonePrimary} / {identity.phoneSecondary}
                 </a>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-brick-400 shrink-0" />
-                <a href="mailto:info@inshaa-engineering.com" className="font-mono hover:text-white">
-                  info@inshaa-engineering.com
+                <a href={`mailto:${identity.email}`} className="font-mono hover:text-white">
+                  {identity.email}
                 </a>
               </div>
 
               <div className="flex items-center gap-2.5 pt-1 text-slate-400">
                 <Clock className="w-4 h-4 text-slate-400 shrink-0" />
-                <span>السبت - الخميس: 9:00 ص - 8:00 م</span>
+                <span>{identity.workingHours}</span>
               </div>
             </div>
           </div>
@@ -188,12 +188,15 @@ export function Footer() {
       <div className="border-t border-slate-800/80 py-5 bg-slate-950 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p>
-            جميع الحقوق محفوظة © {new Date().getFullYear()} مكتب إنشاء للهندسة - مهندس استشاري / عماد الدين أمين.
+            جميع الحقوق محفوظة © {new Date().getFullYear()} {identity.name} - {identity.leadConsultant}.
           </p>
           <div className="flex items-center gap-6 text-[11px] font-mono">
             <Link href="/about" className="hover:text-slate-400">عن المكتب</Link>
             <Link href="/services" className="hover:text-slate-400">الخدمات</Link>
-            <Link href="/llms.txt" className="text-desert-400 hover:text-desert-300">llms.txt (AI Index)</Link>
+            <Link href="/admin" className="text-slate-400 hover:text-desert-400 flex items-center gap-1">
+              <Lock className="w-3 h-3" />
+              <span>لوحة الإدارة</span>
+            </Link>
             <Link href="/sitemap.xml" className="hover:text-slate-400">Sitemap</Link>
           </div>
         </div>

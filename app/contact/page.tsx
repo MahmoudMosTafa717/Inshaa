@@ -16,9 +16,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { siteConfig } from "@/lib/seo";
+import { useAdminData } from "@/lib/context/AdminDataContext";
 
 export default function ContactPage() {
+  const { state, addLead } = useAdminData();
+  const { identity } = state;
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -34,6 +37,17 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Add lead directly into Admin CRM inbox
+    addLead({
+      name: formData.name,
+      phone: formData.phone,
+      projectType: formData.projectType,
+      location: formData.location,
+      plotArea: formData.plotArea || undefined,
+      notes: formData.notes || undefined,
+    });
+
     setSubmitted(true);
   };
 
@@ -55,10 +69,10 @@ export default function ContactPage() {
               {"//"} قنوات التواصل وحجز الاستشارات الهندسية
             </span>
             <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-display leading-tight">
-              تواصل مع مكتب إنشاء للهندسة أو احجز موعداً بمقرنا بالفيوم أو أكتوبر
+              تواصل مع {identity.name} أو احجز موعداً بمقرنا بالفيوم أو أكتوبر
             </h1>
             <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed font-sans">
-              سواء كنت ترغب في مراجعة كروكي قطعة أرضك، استخراج رخصة بناء بالفيوم أو جهازي أكتوبر وزايد، أو طلب مقايسة وتصميم هندسي متكامل، يسعدنا استقبالك وتقديم استشارة أولية مع <strong>مهندس استشاري / عماد الدين أمين</strong>.
+              سواء كنت ترغب في مراجعة كروكي قطعة أرضك، استخراج رخصة بناء بالفيوم أو جهازي أكتوبر وزايد، أو طلب مقايسة وتصميم هندسي متكامل، يسعدنا استقبالك وتقديم استشارة أولية مع <strong>{identity.leadConsultant}</strong>.
             </p>
           </div>
 
@@ -74,7 +88,7 @@ export default function ContactPage() {
                     تم استلام طلبك وتنسيق موعد الاستشارة بنجاح!
                   </h2>
                   <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed font-sans">
-                    شكراً لتواصلك مع مكتب إنشاء للهندسة. سيتواصل معك الاستشاري هاتفياً خلال ساعات عمل اليوم لمراجعة تفاصيل الموقع والمخططات.
+                    شكراً لتواصلك مع {identity.name}. سيتواصل معك الاستشاري هاتفياً خلال ساعات عمل اليوم لمراجعة تفاصيل الموقع والمخططات.
                   </p>
                   <div className="pt-4">
                     <Button
@@ -233,21 +247,21 @@ export default function ContactPage() {
                   مكتب الفيوم (المقر الرئيسي)
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed font-mono">
-                  منطقة المسلة، بالقرب من ديوان عام المحافظة ومجمع المصالح الحكومية، مدينة الفيوم.
+                  {identity.fayoumAddress}
                 </p>
 
                 <div className="space-y-2 text-xs font-mono pt-3 border-t border-slate-800 text-slate-300">
                   <div className="flex items-center gap-2">
                     <Phone className="w-3.5 h-3.5 text-desert-400 shrink-0" />
-                    <span>0100 123 4567 / 0100 987 6543</span>
+                    <span>{identity.phonePrimary} / {identity.phoneSecondary}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Mail className="w-3.5 h-3.5 text-desert-400 shrink-0" />
-                    <span>info@inshaa-engineering.com</span>
+                    <span>{identity.email}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Clock className="w-3.5 h-3.5 text-desert-400 shrink-0" />
-                    <span>السبت - الخميس: 9:00 ص - 8:00 م</span>
+                    <span>{identity.workingHours}</span>
                   </div>
                 </div>
 
@@ -255,7 +269,7 @@ export default function ContactPage() {
                   <Button
                     variant="primary"
                     size="sm"
-                    href="https://wa.me/201001234567"
+                    href={`https://wa.me/2${identity.phonePrimary.replace(/[^0-9]/g, "")}`}
                     external
                     className="w-full justify-center bg-emerald-600 hover:bg-emerald-700 border-emerald-600 text-white font-bold"
                   >
@@ -275,10 +289,10 @@ export default function ContactPage() {
                   مكتب 6 أكتوبر والشيخ زايد
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed font-mono">
-                  مدينة 6 أكتوبر ومحور البستان بالشيخ زايد، الجيزة.
+                  {identity.octoberAddress}
                 </p>
                 <div className="text-xs font-mono text-slate-700 pt-2 border-t border-paper-300">
-                  هاتف الفرع: 0100 987 6543
+                  هاتف الفرع: {identity.phoneSecondary}
                 </div>
               </div>
 
@@ -286,7 +300,7 @@ export default function ContactPage() {
               <div className="p-4 bg-brick-50 border border-brick-300 text-xs text-brick-950 font-mono flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-brick-700 shrink-0" />
                 <span>
-                  مكتب إنشاء للهندسة مسجل بنقابة المهندسين المصرية برقم قيد استشاري 1248/خ - م. عماد الدين أمين.
+                  {identity.name} مسجل بنقابة المهندسين المصرية برقم قيد استشاري {identity.syndicateNumber} - {identity.leadConsultant}.
                 </span>
               </div>
             </div>

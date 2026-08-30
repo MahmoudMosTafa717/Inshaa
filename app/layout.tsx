@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { constructMetadata } from "@/lib/seo";
+import { AdminDataProvider } from "@/lib/context/AdminDataContext";
 
 const alexandria = Alexandria({
   subsets: ["arabic", "latin"],
@@ -56,14 +57,16 @@ export default function RootLayout({
         <meta name="ICBM" content="29.3084, 30.8428" />
       </head>
       <body className="min-h-screen flex flex-col font-sans bg-background text-foreground antialiased selection:bg-brick-700 selection:text-white">
-        <JsonLd type="Organization" />
-        <JsonLd type="WebSite" />
-        
-        <Navbar />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <AdminDataProvider>
+          <JsonLd type="Organization" />
+          <JsonLd type="WebSite" />
+          
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </AdminDataProvider>
       </body>
     </html>
   );
